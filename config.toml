@@ -20,10 +20,8 @@ disqusShortname = "yourdiscussshortname"
     keywords = "blog,developer,personal"
     info = "London Business School MFA 2021 Student"
     avatarurl = "images/avatar.jpg"
-    #avatarurl = "images/avatar.jpg"
-    footercontent = "Enter a text here."
-    fixedbarContent = "Do you want to know me more private?→"
-    fixedbarContentAfter = "Thank You! Please share it if you like it→"
+    fixedbarContent = "Do you want to contact me via e-mail?→"
+    fixedbarContentAfter = ""manuv.mfa2021@london.edu" Please share my profile if you like it→"
 
     hideCredits = false
     hideCopyright = false
@@ -34,8 +32,6 @@ disqusShortname = "yourdiscussshortname"
     # if you want add sns. please message!
     enableTwitterShare = true
     enableFacebookShare = true
-    enableHatenaShare = true
-    enableLineShare = true
     enableLinkedInShare = true
 
     thumbnail = "images/tn.png"
