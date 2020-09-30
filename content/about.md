@@ -6,7 +6,7 @@ title: About Hugo
 ---
 
 ---------------------------
-Manu Vanderveeren is...
+Hi, I am Manu Vanderveeren.
 
 ---------------------------
 
