@@ -129,7 +129,7 @@ Follow the following steps:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Manu Vanderveeren is&amp;hellip;
+      <description>Hi, I am Manu Vanderveeren.
  Thanks for reading!</description>
     </item>
     
@@ -168,9 +168,8 @@ Follow the following steps:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Portfolio Demo  Coder Portfolio hugo-coderを元に作成しました。
-より自分を伝えられるようにしました。
-   </description>
+      <description>Portfolio Demo &amp;hellip;
+Coder Portfolio &amp;hellip;</description>
     </item>
     
     <item>
