@@ -21,7 +21,7 @@ disqusShortname = "yourdiscussshortname"
     info = "London Business School MFA 2021 Student"
     avatarurl = "images/avatar.jpg"
     fixedbarContent = "Do you want to contact me via e-mail?→"
-    fixedbarContentAfter = ""manuv.mfa2021@london.edu" Please share my profile if you like it→"
+    fixedbarContentAfter = "manuv.mfa2021@london.edu | Please share my profile if you like it→"
 
     hideCredits = false
     hideCopyright = false
