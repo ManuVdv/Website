@@ -68,10 +68,6 @@
               <a class="navigation-link" href="/projects">Projects</a>
             </li>
           
-            <li class="navigation-item  align-center ">
-              <a class="navigation-link" href="/contact">Contact me</a>
-            </li>
-          
         
         
       </ul>
@@ -88,27 +84,27 @@
       <h1>Projects</h1>
     </header>
 
-    <h2 id="portfolio-demo">Portfolio Demo</h2>
-
-
-  
-  
-
-
-
-
-
-<div class="portfolio">
-    <div class="portfolio-inner">
-        <div class="portfolio-image"><img src="/images/tn.png" alt="Coder Portfolio"></div>
-        <div class="portfolio-content">
-            <h2 id="coder-portfolio">Coder Portfolio</h2>
-<p>This theme is created based on hugo-coder.<br>
-I made it possible to tell yourself more by my change.</p>
-
-        </div>
-	</div>
-</div>
+    <h2 id="project-1-identifying-prostate-cancer">Project 1: Identifying prostate cancer</h2>
+<p><strong>1. Understanding the data</strong></p>
+<p>This prostate dataset wants to predict a score called “Cscore” which describes the progression
+of prostate cancer based on multiple variables such as size of the prostate, age of patient
+among others.
+After uploading the data, I checked the different dimensions, possible missing data, and
+names of all columns.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; dim(prostate)
+[1] 97 8
+&gt; sum(is.na(prostate))
+[1] 0
+&gt; names(prostate)
+[1] &#34;Cscore&#34; &#34;lcavol&#34; &#34;lweight&#34; &#34;age&#34; &#34;lbph&#34; &#34;svi&#34; &#34;lcp&#34; &#34;lpsa&#34;
+</code></pre></div><p>I found that our data has 97 data poins and 8 columns called “Cscore”, “lcavol”, “lweight”, “
+age”, “lbph, &ldquo;svi&rdquo;, &ldquo;lcp&rdquo;, &ldquo;lpsa&rdquo; with no missing data.
+To better understand the several variables, I plotted them individually to Cscore.</p>
+<p><img src="/Users/vande/Documents/Website/themes/hugo-coder-portfolio/static/images/Cscore.jpg" alt="Cscore">
+<img src="Users/vande/Documents/Website/themes/hugo-coder-portfolio/static/images/Cscore.jpg" alt="Cscore">
+<img src="static/images/Cscore.jpg" alt="Cscore">
+<img src="images/Cscore.jpg" alt="Cscore"></p>
+<p>&hellip;</p>
 
   </article>
 </section>

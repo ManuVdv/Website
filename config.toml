@@ -66,8 +66,4 @@ disqusShortname = "yourdiscussshortname"
                 name = "Projects"
                 weight = 2
                 url = "projects"
-                
-            [[menu.main]]
-                name = "Contact me"
-                weight = 5
-                url = "contact"
+
