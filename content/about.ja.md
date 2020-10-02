@@ -7,7 +7,7 @@ title: About ME
 
 ---------------------------
 
-Hi, I am Manu Vanderveeren. I am from Leuven, Belgium and started studying economics at the KU Leuven in 2017. I am ambitious, global minded and passionate about finance.I went on exchange to the City University of Honk Kong during the autumn of 2019 and I recently started studying at the London Business School.
+Hi, I am Manu Vanderveeren. I am from Leuven, Belgium and started studying economics at the KU Leuven in 2017. I am ambitious, global minded and passionate about finance. I went on exchange to the City University of Honk Kong during the autumn of 2019 and I recently started studying at the London Business School.
 
 **My Hong Kong Story**
 
