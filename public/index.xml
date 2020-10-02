@@ -146,14 +146,12 @@ My international exchange in Hong Kong during the autumn of 2019 made me grow as
     </item>
     
     <item>
-      <title>Projects</title>
-      <link>/projects/</link>
+      <title>My Resume</title>
+      <link>/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/projects/</guid>
-      <description>Project 1: Identifying prostate cancer 1. Understanding the data
-This prostate dataset wants to predict a score called “Cscore” which describes the progression of prostate cancer based on multiple variables such as size of the prostate, age of patient among others. After uploading the data, I checked the different dimensions, possible missing data, and names of all columns.
-&amp;gt; dim(prostate) [1] 97 8 &amp;gt; sum(is.na(prostate)) [1] 0 &amp;gt; names(prostate) [1] &amp;#34;Cscore&amp;#34; &amp;#34;lcavol&amp;#34; &amp;#34;lweight&amp;#34; &amp;#34;age&amp;#34; &amp;#34;lbph&amp;#34; &amp;#34;svi&amp;#34; &amp;#34;lcp&amp;#34; &amp;#34;lpsa&amp;#34; I found that our data has 97 data poins and 8 columns called “Cscore”, “lcavol”, “lweight”, “ age”, “lbph, &amp;ldquo;svi&amp;rdquo;, &amp;ldquo;lcp&amp;rdquo;, &amp;ldquo;lpsa&amp;rdquo; with no missing data.</description>
+      <guid>/resume/</guid>
+      <description>  </description>
     </item>
     
     <item>
@@ -162,9 +160,22 @@ This prostate dataset wants to predict a score called “Cscore” which describ
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Portfolio Demo  Coder Portfolio This theme is created based on hugo-coder.
-I made it possible to tell yourself more by my change.
-   </description>
+      <description>Project 1: Identifying prostate cancer Authors: Manu Vanderveeren &amp;amp; Laura Bogaert
+1. Understanding the data
+This prostate dataset wants to predict a score called “Cscore” which describes the progression of prostate cancer based on multiple variables such as size of the prostate, age of patient among others. After uploading the data, we checked the different dimensions, possible missing data, and names of all columns.
+&amp;gt; dim(prostate) [1] 97 8 &amp;gt; sum(is.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/</guid>
+      <description>Project 1: Identifying prostate cancer Authors: Manu Vanderveeren &amp;amp; Laura Bogaert
+1. Understanding the data
+This prostate dataset wants to predict a score called “Cscore” which describes the progression of prostate cancer based on multiple variables such as size of the prostate, age of patient among others. After uploading the data, we checked the different dimensions, possible missing data, and names of all columns.
+&amp;gt; dim(prostate) [1] 97 8 &amp;gt; sum(is.</description>
     </item>
     
   </channel>
