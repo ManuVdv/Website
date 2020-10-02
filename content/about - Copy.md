@@ -5,8 +5,12 @@ thumbnail: images/tn.png
 title: My Resume
 ---
 
----------------------------
 
 
 
----------------------------
+
+
+
+
+
+![Resume](/images/Resume.jpg)
