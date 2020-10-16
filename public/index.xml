@@ -160,10 +160,9 @@ My international exchange in Hong Kong during the autumn of 2019 made me grow as
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Project 1: Identifying prostate cancer Authors: Manu Vanderveeren &amp;amp; Laura Bogaert
-1. Understanding the data
-This prostate dataset wants to predict a score called “Cscore” which describes the progression of prostate cancer based on multiple variables such as size of the prostate, age of patient among others. After uploading the data, we checked the different dimensions, possible missing data, and names of all columns.
-&amp;gt; dim(prostate) [1] 97 8 &amp;gt; sum(is.</description>
+      <description>Project 2: Analysing all AirBnb listings in Istanbul ing ing ing ing
+1. Loading all the packages which we will use
+ title: &amp;ldquo;Analysing all AirBnb listings in Istanbul&amp;rdquo; authors: &amp;ldquo;Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi&amp;rdquo; output: word_document: default html_document: default knitr::opts_chunk$set(echo = TRUE) # below we load all the packages that we will need for our analysis library(tidyverse) library(vroom) library(mosaic) library(ggthemes) library(GGally) library(readxl) library(here) library(skimr) library(janitor) library(broom) library(tidyquant) library(infer) library(openintro) library(tidyquant) library(GGally) listings %&amp;gt;% select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %&amp;gt;% filter(is.</description>
     </item>
     
     <item>
@@ -172,10 +171,9 @@ This prostate dataset wants to predict a score called “Cscore” which describ
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Project 1: Identifying prostate cancer Authors: Manu Vanderveeren &amp;amp; Laura Bogaert
-1. Understanding the data
-This prostate dataset wants to predict a score called “Cscore” which describes the progression of prostate cancer based on multiple variables such as size of the prostate, age of patient among others. After uploading the data, we checked the different dimensions, possible missing data, and names of all columns.
-&amp;gt; dim(prostate) [1] 97 8 &amp;gt; sum(is.</description>
+      <description>Project 2: Analysing AirBnb listings in Istanbul Authors: Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi
+1. Loading all the packages which we will use
+knitr::opts_chunk$set(echo = TRUE) # below we load all the packages that we will need for our analysis library(tidyverse) library(vroom) library(mosaic) library(ggthemes) library(GGally) library(readxl) library(here) library(skimr) library(janitor) library(broom) library(tidyquant) library(infer) library(openintro) library(tidyquant) library(GGally) listings %&amp;gt;% select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %&amp;gt;% filter(is.</description>
     </item>
     
   </channel>

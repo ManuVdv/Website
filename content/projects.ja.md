@@ -6,6 +6,109 @@ title: Projects
 ---
 
 ---------------------------
+## Project 2: Analysing all AirBnb listings in Istanbul
+ing
+ing
+ing
+ing
+
+**1. Loading all the packages which we will use**
+
+---
+title: "Analysing all AirBnb listings in Istanbul"
+authors: "Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi"
+output:
+  word_document: default 
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+# below we load all the packages that we will need for our analysis
+library(tidyverse)
+library(vroom)
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(tidyquant)
+library(GGally)
+```
+
+listings %>% 
+  select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %>% 
+  filter(is.na(cleaning_fee) == TRUE) %>% 
+  count(property_type) %>% 
+  arrange(desc(n))
+  
+Getting the data
+```{r CACHE=TRUE}
+
+listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
+
+```
+**2. Understanding the data**
+
+Getting the data
+```{r CACHE=TRUE}
+
+listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
+
+```
+
+```{r}
+#We only select the columns that we will use in our assignment
+listings <- listingsRAW %>% 
+  select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights, guests_included, bathrooms, bedrooms, beds, host_is_superhost, is_location_exact, neighbourhood_cleansed, cancellation_policy)
+
+```
+
+Variables:
+  price = cost per night
+  cleaning_fee: cleaning fee
+  extra_people: charge for having more than 1 person
+  property_type: type of accommodation (House, Apartment, etc.)
+  room_type:
+    Entire home/apt (guests have entire place to themselves)
+    Private room (Guests have private room to sleep, all other rooms shared)
+    Shared room (Guests sleep in room shared with others)
+  number_of_reviews: Total number of reviews for the listing
+  review_scores_rating: Average review score (0 - 100)
+  longitude , latitude: geographical coordinates to help us locate the listing
+  neighbourhood*: three variables on a few major neighbourhoods in each city
+
+
+
+#Exploratory Data Analysis (EDA)
+
+“Your goal during EDA is to develop an understanding of your data. The easiest way to do this is to use questions as tools to guide your investigation… EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”
+
+## Looking at the raw values
+
+```{r}
+#glimpse shows us all the different columns
+glimpse(listings)
+
+```
+
+
+## Computing summary statistics of the variables of interest, or finding NAs
+
+```{r}
+#skim provides us with a broad summary of our data
+skim(listings)
+```
+----------------------
 
 ## Project 1: Identifying prostate cancer
 

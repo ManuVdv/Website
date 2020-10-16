@@ -7,6 +7,324 @@ title: Projects
 
 ---------------------------
 
+## Project 2: Analysing AirBnb listings in Istanbul
+
+Authors: Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi
+
+**1. Loading all the packages which we will use**
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+# below we load all the packages that we will need for our analysis
+library(tidyverse)
+library(vroom)
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(tidyquant)
+library(GGally)
+```
+
+listings %>% 
+  select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %>% 
+  filter(is.na(cleaning_fee) == TRUE) %>% 
+  count(property_type) %>% 
+  arrange(desc(n))
+  
+Getting the data
+```{r CACHE=TRUE}
+
+listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
+
+```
+**2. Understanding the data**
+
+Getting the data
+```{r CACHE=TRUE}
+
+listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
+
+```
+
+```{r}
+#We only select the columns that we will use in our assignment
+listings <- listingsRAW %>% 
+  select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights, guests_included, bathrooms, bedrooms, beds, host_is_superhost, is_location_exact, neighbourhood_cleansed, cancellation_policy)
+
+```
+
+Variables:
+  price = cost per night
+  cleaning_fee: cleaning fee
+  extra_people: charge for having more than 1 person
+  property_type: type of accommodation (House, Apartment, etc.)
+  room_type:
+    Entire home/apt (guests have entire place to themselves)
+    Private room (Guests have private room to sleep, all other rooms shared)
+    Shared room (Guests sleep in room shared with others)
+  number_of_reviews: Total number of reviews for the listing
+  review_scores_rating: Average review score (0 - 100)
+  longitude , latitude: geographical coordinates to help us locate the listing
+  neighbourhood*: three variables on a few major neighbourhoods in each city
+
+
+
+##Exploratory Data Analysis (EDA)
+
+“Your goal during EDA is to develop an understanding of your data. The easiest way to do this is to use questions as tools to guide your investigation… EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”
+
+## Looking at the raw values
+
+```{r}
+#glimpse shows us all the different columns
+glimpse(listings)
+
+```
+
+
+## Computing summary statistics of the variables of interest, or finding NAs
+
+```{r}
+#skim provides us with a broad summary of our data
+skim(listings)
+```
+
+```{r}
+listings <- listings %>% 
+  
+  # we use parse_number to remove the (dollar) signs in front of the cells in the columns (price, cleaning_fee and extra_people) so the values are just plain numbers that we can work with
+  mutate(price = parse_number(price), 
+         cleaning_fee = parse_number(cleaning_fee),
+         extra_people = parse_number(extra_people)) 
+
+skim(listings)
+
+```
+  
+##Handling missing values (NAs)
+
+Use skimr::skim() function to view a summary of the cleaning_fee data. This is also stored as a character, so you have to turn it into a number, as discussed earlier.
+
+How many observations have missing values for cleaning_fee?
+What do you think is the most likely reason for the missing observations of cleaning_fee? In other words, what does a missing value of cleaning_fee indicate?
+cleaning_fee an example of data that is missing not at random, since there is a specific pattern/explanation to the missing data.
+
+Fill in the code below to impute the missing values of cleaning_fee with an appropriate numeric value. Then use skimr::skim() function to confirm that there are no longer any missing values of cleaning_fee.
+  
+```{r}
+
+skim(listings$cleaning_fee)
+
+listings <- listings %>%
+  mutate(cleaning_fee = case_when(
+    is.na(cleaning_fee) ~ 0, 
+    TRUE ~ cleaning_fee
+  ))
+
+skim(listings$cleaning_fee)
+
+#There are 13660 missing values for the variable cleaning_fee. Comparing it to other variables, we can see that review_scores_rating has a very similar missing value proportion. This suggests that listings with no reviews (most likely new listings) do not ask for a cleaning_fee to attract new customers. Accordingly, we set the NAs to a value of 0.
+
+```
+  
+Next, we look at the variable property_type. We can use the count function to determine how many categories there are their frequency. What are the top 4 most common property types? What proportion of the total listings do they make up?
+
+Since the vast majority of the observations in the data are one of the top four or five property types, we would like to create a simplified version of property_type variable that has 5 categories: the top four categories and Other. Fill in the code below to create prop_type_simplified.
+
+
+```{r}
+
+# Arranging the property types to view the top property types
+listings %>% 
+  count(property_type) %>% 
+  mutate(proportion = n/sum(n)) %>% 
+  arrange(desc(proportion))
+  
+```
+
+```{r}
+
+# we make a new column where we assign all other property types than the 4 most common ones to the category other
+listings <- listings %>%
+  mutate(prop_type_simplified = case_when(
+    property_type %in% c("Apartment","Serviced apartment", "House","Boutique hotel") ~ property_type, 
+    TRUE ~ "Other"
+  ))
+# we count the number of properties per property type and we arrange them from most common to least common
+listings %>%
+  count(property_type, prop_type_simplified) %>%
+  arrange(desc(n)) 
+  
+```
+
+Airbnb is most commonly used for travel purposes, i.e., as an alternative to traditional hotels. We only want to include listings in our regression analysis that are intended for travel purposes:
+
+What are the most common values for the variable minimum_nights?
+
+```{r}
+
+listings %>% 
+  count(minimum_nights) %>% 
+  mutate(proportion = n/sum(n)) %>% 
+  arrange(desc(proportion))
+
+
+#The most common value for minimum nights are 1, 2 and 3. 1 night accounts for 56%, 2 nights for 19% and 3 nights for 11% of the values. 
+```
+
+Is there any value among the common values that stands out?
+
+A 1 night minimum is by far the most common value for this variable. However, there are also several occasions when the listings require a 1 month minimum stay. These are unlikely for travel purposes, rather for short-term  housing solutions. Among the most common three values, no values are unusual. 
+
+
+
+What is the likely intended purpose for Airbnb listings with this seemingly unusual value for minimum_nights?
+
+Filter the airbnb data so that it only includes observations with minimum_nights <= 4
+
+
+Generating a visual representation of the airbnb listings in Istanbul with leaflet
+
+```{r}
+library(leaflet)
+# here we load the package leaflet which we need in order to plot all the properties on an interactive map. The code below takes an interactive map  of Istanbul from OpenStreetMap.Mapnik and plots all the listings were the minimum number of nights is equal to or below 4.
+leaflet(data = filter(listings, minimum_nights <= 4)) %>% 
+  addProviderTiles("OpenStreetMap.Mapnik") %>% 
+  addCircleMarkers(lng = ~longitude, 
+                   lat = ~latitude, 
+                   radius = 1, 
+                   fillColor = "red", 
+                   fillOpacity = 0.4, 
+                   label = ~property_type)
+
+```
+
+
+
+```{r}
+# here we calculate the price for a 4 night stay, of course only for the properties where the minimun stay is below 5 nights.
+listings <- listings %>% 
+  filter(minimum_nights <= 4) %>% 
+  mutate(price_4_nights = cleaning_fee + 4 * (price + extra_people * if_else(guests_included < 2, 1, 0)))
+
+
+```
+Use histograms or density plots to examine the distributions of price_4_nights and log(price_4_nights). Which variable should you use for the regression model? Why?
+
+
+```{r}
+# this code produces a density plot with price for 4 nights on the x-axis, we can clearly see that the graph is heavily skewed to the right
+ listings %>% ggplot(aes(x=price_4_nights)) + 
+  geom_density() 
+# as there is a large difference in prices between prices for a 4 night stay, we replaced the price on the x-axis with a log price, this gives us a very interesting result as the graph looks normally distributed.
+ listings %>% ggplot(aes(x=log(price_4_nights))) + 
+  geom_density() 
+ 
+ 
+
+```
+As the diagrams show, it is better to use the log of the variable price_4_nights in the regression model as it more clearly demarks the normal distribution of the prices, and therefore affords much more predictive power to our model
+
+We now fit a regression model called model1 with the following explanatory variables: prop_type_simplified, number_of_reviews, and review_scores_rating.
+
+```{r}
+# Here we run a regression model of the log of the price for 4 nights with the number_of_reviews, prop_type_simplified and the review_scores_rating
+model1 <-  lm(log(price_4_nights) ~ number_of_reviews + prop_type_simplified + review_scores_rating, data=listings) 
+summary(model1)
+
+```
+
+Interpret the coefficient review_scores_rating in terms of price_4_nights
+What the model suggests is that the number of reviews has significant explanatory power on the price for four nights, as we see a very small value for the P coefficient that would explain the price in terms of the null assumption. We  find instead an extremely low value, which therefore rejects the null hypethsis and tells us that the number of reviews is a significant predictor, as confirmed by the  three stars next to the coefficient row
+
+Interpret the coefficient of prop_type_simplified in terms of price_4_nights.
+The prop_type_simplified variable, on the other hand, is not as easy to interpret: what appears in fact is that only when the simplified property typeis a Servicd Apartment  or a Other category  does it reliably predict the  price for 4 nights, while in the case it is a  house or boutique hotel it does not: this is based on the P values seeni in the last column as explained earlier.
+A  possible explanationc oould be that the  sheer number of houses, the most common category as seen earlier in the analysis,  confound the signal it could give. The boutique hotel, on the other hand we would expect to be more preedictive, however it appears it really is not.
+
+
+```{r}
+# Here we run a regression model of the log of the price for 4 nights with room_type, number_of_reviews, prop_type_simplified and the review_scores_rating
+model2 <-  lm(log(price_4_nights) ~ room_type + number_of_reviews + prop_type_simplified + review_scores_rating, data=listings) 
+summary(model2)
+
+```
+
+What we see when including in our regression the room_type variable is that this in fact holds much greater predictive power, especially when combined with the boutique hotel variable: with this new regression in fact we see that the Boutique Hotel property type has a very low P value, which combined with the room type variable helps us model much better the price for four nights.
+
+
+Are the number of bathrooms, bedrooms, beds, or size of the house (accomodates) significant predictors of price_4_nights?
+
+```{r}
+# here we clean the data by setting all the NA values to 0, so that we can run the regression  ???? TODO
+l3 <- listings %>% 
+  mutate(bathrooms = case_when(
+    is.na(bathrooms) | is.nan(bathrooms) | bathrooms==Inf | bathrooms==-Inf ~ as.integer(0), 
+    TRUE ~ as.integer(bathrooms)),
+  bedrooms = case_when(
+    is.na(bedrooms) | is.nan(bedrooms) | bedrooms==Inf | bedrooms==-Inf  ~ 0, 
+    TRUE ~ bedrooms),
+  beds = case_when(
+    is.na(beds) | is.nan(beds) | beds==Inf | beds==-Inf  ~ 0, 
+    TRUE ~ beds)) %>%
+  filter(price_4_nights>0)
+# Here we run a regression model of the log of the price for 4 nights with beds, bathrooms and bedrooms
+model3 <- lm(log(price_4_nights) ~ beds + bathrooms + bedrooms, data=l3)
+summary(model3)
+
+
+
+```
+
+This regression confirms that the number of bedrooms, bathroom and beds are all relevant predictors of the price of a property, as their p values are extremely small
+
+Do superhosts (host_is_superhost) command a pricing premium, after controlling for other variables?
+
+Most owners advertise the exact location of their listing (is_location_exact == TRUE), while a non-trivial proportion don’t. After controlling for other variables, is a listing’s exact location a significant predictor of price_4_nights?
+
+For all cities, there are 3 variables that relate to neighbourhoods: neighbourhood, neighbourhood_cleansed, and neighbourhood_group_cleansed. There are typically more than 20 neighbourhoods in each city, and it wouldn’t make sense to include them all in your model. Use your city knowledge, or ask someone with city knowledge, and see whether you can group neighbourhoods together so the majority of listings falls in fewer (5-6 max) geographical areas. You would thus need to create a new categorical variabale neighbourhood_simplified and determine whether location is a predictor of price_4_nights
+
+```{r}
+#Mapping neighborhoods into groups for Istanbul thanks to Sena Salman's help, Group 1 is the most posh areas, 2 are average and 3 more in the outskirts
+
+listings_w_area <- listings %>% 
+  filter(price_4_nights>0)%>% 
+  mutate(neighbourhood_custom_areas = case_when(  
+
+neighbourhood_cleansed == "Uskudar" | neighbourhood_cleansed == "Besiktas" | neighbourhood_cleansed == "Beyoglu" | neighbourhood_cleansed == "Sisli" | neighbourhood_cleansed == "Adalar" | neighbourhood_cleansed == "Fatih" | neighbourhood_cleansed == "Atasehir" | neighbourhood_cleansed == "Sariyer" | neighbourhood_cleansed == "Kadikoy" | neighbourhood_cleansed == "Bakirkoy" ~ 1,
+
+  neighbourhood_cleansed == "Kagithane" | neighbourhood_cleansed == "Esenyurt" | neighbourhood_cleansed == "Maltepe" | neighbourhood_cleansed == "Bayrampasa" | neighbourhood_cleansed == "Buyukcekmece" | neighbourhood_cleansed == "Sultanbeyli" | neighbourhood_cleansed == "Gaziosmanpasa" | neighbourhood_cleansed == "Zeytinburnu" | neighbourhood_cleansed == "Gungoren"  | neighbourhood_cleansed == "Bahcelievler" | neighbourhood_cleansed == "Eyup" | neighbourhood_cleansed == "Umraniye" | neighbourhood_cleansed == "Cekmekoy" | neighbourhood_cleansed == "Esenler" | neighbourhood_cleansed == "Sancaktepe" | neighbourhood_cleansed == "Kucukcekmece" | neighbourhood_cleansed == "Sultangazi" | neighbourhood_cleansed == "Bagcilar" ~ 2,
+
+  neighbourhood_cleansed == "Sile" | neighbourhood_cleansed == "Tuzla" | neighbourhood_cleansed == "Pendik" | neighbourhood_cleansed == "Arnavutkoy" | neighbourhood_cleansed == "Avcilar" | neighbourhood_cleansed == "Beylikduzu" | neighbourhood_cleansed == "Kartal" | neighbourhood_cleansed == "Beykoz" | neighbourhood_cleansed == "Catalca" | neighbourhood_cleansed == "Silivri" | neighbourhood_cleansed == "Basaksehir" ~ 3)) 
+
+# Here we run a regression model of the log of the price for 4 nights with the neighbourhood_custom_areas
+model4 <- lm(log(price_4_nights) ~ neighbourhood_custom_areas, data=listings_w_area)
+summary(model4)
+
+```
+
+Having mappes the different neighborhoods to select groups based on their "presitge", we can see that this information holds significant predicting power on the price of a 4 night stay, as shown by the extremely low P value fitted
+
+What is the effect of cancellation_policy on price_4_nights, after we control for other variables?
+
+```{r}
+# Here we run a regression model of the log of the price for 4 nights with cancellation_policy, bathrooms, bedrooms, room_type, number_of_reviews, prop_type_simplified and review_scores_rating
+model3 <- lm(log(price_4_nights + 0.0001) ~ cancellation_policy + bathrooms + bedrooms + room_type + number_of_reviews + prop_type_simplified + review_scores_rating, data=l3)
+summary(model3)
+```
+
+----------------------
+
 ## Project 1: Identifying prostate cancer
 
 Authors: Manu Vanderveeren & Laura Bogaert
