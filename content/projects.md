@@ -35,20 +35,13 @@ library(openintro)
 library(tidyquant)
 library(GGally)
 ```
-
-```{r CACHE=TRUE}
-
-listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
-
-```
-**2. Understanding the data**
-
 Getting the data
 ```{r CACHE=TRUE}
 
 listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
 
 ```
+**2. Understanding the data**
 
 ```{r}
 #We only select the columns that we will use in our assignment
