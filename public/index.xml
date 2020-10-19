@@ -173,7 +173,8 @@ My international exchange in Hong Kong during the autumn of 2019 made me grow as
       <guid>/projects/</guid>
       <description>Project 2: Analysing AirBnb listings in Istanbul Authors: Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi
 1. Loading all the packages which we will use
-knitr::opts_chunk$set(echo = TRUE) # below we load all the packages that we will need for our analysis library(tidyverse) library(vroom) library(mosaic) library(ggthemes) library(GGally) library(readxl) library(here) library(skimr) library(janitor) library(broom) library(tidyquant) library(infer) library(openintro) library(tidyquant) library(GGally) listings %&amp;gt;% select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %&amp;gt;% filter(is.</description>
+knitr::opts_chunk$set(echo = TRUE) # below we load all the packages that we will need for our analysis library(tidyverse) library(vroom) library(mosaic) library(ggthemes) library(GGally) library(readxl) library(here) library(skimr) library(janitor) library(broom) library(tidyquant) library(infer) library(openintro) library(tidyquant) library(GGally) Getting the data
+listingsRAW &amp;lt;- vroom(&amp;#34;http://data.</description>
     </item>
     
   </channel>
