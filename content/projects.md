@@ -36,13 +36,6 @@ library(tidyquant)
 library(GGally)
 ```
 
-listings %>% 
-  select(price, cleaning_fee, extra_people, property_type, room_type, number_of_reviews, review_scores_rating, longitude, latitude, neighbourhood, minimum_nights) %>% 
-  filter(is.na(cleaning_fee) == TRUE) %>% 
-  count(property_type) %>% 
-  arrange(desc(n))
-  
-Getting the data
 ```{r CACHE=TRUE}
 
 listingsRAW <- vroom("http://data.insideairbnb.com/turkey/marmara/istanbul/2020-06-28/data/listings.csv.gz")
