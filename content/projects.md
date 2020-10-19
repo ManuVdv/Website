@@ -7,7 +7,7 @@ title: Projects
 
 --------------------
 
-## Project 3: Statistical analysis on the Dow Jones
+## Project 3: Statistical analysis on the Dow Jones Index
 
 **1. Calculating losses with historical data**
 
@@ -179,7 +179,9 @@ standarized
 VaR.t4 <- qt(alpha, t.dof) * sqrt((t.dof-2)/t.dof) * sigma
 ```
 
+
 ---------------------------
+
 
 ## Project 2: Analysing AirBnb listings in Istanbul
 
