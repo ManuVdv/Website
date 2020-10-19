@@ -89,6 +89,136 @@
     </header>
 
     <hr>
+<h2 id="project-3-statistical-analysis-on-the-dow-jones">Project 3: Statistical analysis on the Dow Jones</h2>
+<h1 id="1-calculating-losses-with-historical-data">1. Calculating losses with historical data</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">install.packages(&#34;qrmdata&#34;) 
+library(qrmdata)
+</code></pre></div><p>Read data of Dow Jones index constituents, see <a href="https://finance.yahoo.com/q/cp?s=%5EDJI">https://finance.yahoo.com/q/cp?s=%5EDJI</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">data(DJ_const)
+names(DJ_const)
+</code></pre></div><p>portfolio and shares</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">portfolio &lt;- c(&#34;BA&#34;,&#34;IBM&#34;,&#34;KO&#34;) # ,&#34;JNJ&#34;
+lambda &lt;- c(1000,1000,1000) # 
+S &lt;- DJ_const[,portfolio]
+logS &lt;- log(S)
+tt &lt;- nrow(logS)
+dim(diff(logS))
+#Risk factor changes
+#we will not take the first difference because it is useless
+X &lt;- diff(logS)[2:tt,]
+</code></pre></div><p>current value of the portfolio and weights (current time is end time series: tt)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Vtt &lt;- sum(lambda * S[tt,]) # 427890 
+weights &lt;- lambda * S[tt,]/Vtt
+</code></pre></div><p>function to build historical losses for this portfolio:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">loss.sim &lt;- function(Xval, proportion, value){
+  # arguments:
+  # Xval ... matrix or vector of d risk-factor changes 
+  # proportion ... row vector of d weights representing the proportion invested in each stock 
+  # value ... scalar representing the value of the portfolio
+  
+  
+  #if you don&#39;t have a matrix its a bit harder
+  if (is.matrix(Xval)){
+    n &lt;- dim(Xval)[1]
+    prod &lt;- (exp(Xval)-1) %*% t(weights) #you can also do this with a for loop
+    #log returns thats why we use exp
+    total &lt;- rowSums(prod)
+  } else {
+    n &lt;- length(Xval)
+    prod &lt;- weights * (exp(Xval)-1)
+    total &lt;- sum(prod)
+  }
+  
+  loss &lt;- -value * total
+  return(loss)
+}
+
+Loss.sim &lt;- loss.sim(X, weights, Vtt)
+summary(Loss.sim)
+hist(Loss.sim, breaks = 20)
+
+# with historical losses we can estimate the expected value of L_{tt+1}
+meanL &lt;- mean(Loss.sim, na.rm = TRUE)
+</code></pre></div><p><img src="/images/loss.sim.jpeg" alt="loss.sim"></p>
+<h1 id="2-calculating-linear-losses-and-mean-and-variance">2. Calculating linear losses and mean and variance</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">linearised loss 
+losslin.sim &lt;- function(Xval, proportion, value){
+  # arguments:
+  # Xval ... matrix or vector of d risk-factor changes 
+  # proportion ... row vector of d weights representing the proportion invested in each stock 
+  # value ... scalar representing the value of the portfolio
+  
+  if (is.matrix(Xval)){
+    n &lt;- dim(Xval)[1]
+    prod &lt;- (Xval) %*% t(weights)
+    total &lt;- rowSums(prod)
+  } else {
+    n &lt;- length(Xval)
+    prod &lt;- weights * Xval
+    total &lt;- sum(prod)
+  }
+  
+  loss &lt;- -value * total
+  return(loss)
+}
+
+
+Losslin.sim &lt;- losslin.sim(X, weights, Vtt)
+hist(Losslin.sim, breaks = 20)
+
+# mean and variance of loss lin is
+# E(Llin) = Vtt * weights&#39; E(X) 
+# Var(Llin) = Vtt^2 * weights * sigma * weights
+# easy to compute when you have the variances of the risk factor changes
+# mean and variance of historical risk factor changes ~ normal
+n &lt;- dim(X)[1]
+muX.hat &lt;- colMeans(X, na.rm = TRUE)
+sigmaX.hat &lt;- var(X, na.rm = TRUE)  
+meanLosslin &lt;- -Vtt * sum(weights*muX.hat) 
+varLosslin &lt;- Vtt^2 *(weights %*% sigmaX.hat %*% t(weights))
+</code></pre></div><h1 id="3-var-and-es-for-our-simulated-loss-with-historical-data">3. VaR and ES for our simulated loss with historical data</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">alpha &lt;- c(seq(0.1,0.8,0.1), seq(0.9,1,0.01))
+VaR.hs &lt;- quantile(Loss.sim, alpha, na.rm = TRUE)
+#this quantile function is for sample quantile 
+#you need to remove the NAs! that&#39;s why we use na.rm
+#for 7
+ES.hs &lt;- rep(0, length(alpha))
+for(i in 1:length(alpha)) {
+  values &lt;- Loss.sim[Loss.sim &gt; VaR.hs[i]]
+  ES.hs[i] &lt;- mean(values, na.rm = TRUE)
+}
+
+ran &lt;- range(VaR.hs, ES.hs, na.rm = TRUE)
+plot(alpha, VaR.hs, type = &#34;l&#34;, ylim = ran, xlab = expression(alpha),
+     ylab = expression(&#34;estimated VaR&#34;[alpha],&#34;~ES&#34;[alpha])) # true ES_alpha
+lines(alpha, ES.hs , type = &#34;l&#34;, col = &#34;maroon3&#34;) # ES_alpha estimate
+legend(&#34;topleft&#34;, bty = &#34;n&#34;, y.intersp = 1.2, lty = rep(1, 2),
+       col = c(&#34;black&#34;, &#34;maroon3&#34;),
+       legend = c(expression(VaR[alpha]),
+                  expression(ES[alpha])))
+
+# or build it
+# n &lt;- length(Loss.sim)
+# L.order &lt;- sort(Loss.sim)
+# Varhat &lt;- L.order[ceiling(n*alpha)] 
+# plot(alpha, Varhat)
+
+</code></pre></div><p>plot the histogram of the losses and highlight the VaR and ES</p>
+<p><img src="/images/alpha.jpeg" alt="alpha"></p>
+<h1 id="4-for-losses-that-are-normal-distributed-compute-the-var-and-es-for-different-values-of-alpha-do-the-same-for-a-t-distribution">4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">alpha &lt;- c(0.90,0.95,0.975,0.99,0.995,0.999,0.9999,0.99999,0.999999)
+</code></pre></div><p>Standard deviation (daily)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">sigma &lt;- 0.2*10000/sqrt(250)
+</code></pre></div><p>Degrees of freedom when using the Student t distribution</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">t.dof &lt;- 4
+</code></pre></div><p>VaR based on the normal distribution:
+As p is a vector of quantiles, plugging it into the inverse normal 
+quantile function results in a vector of VaRs</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">VaR.normal &lt;- qnorm(alpha, sd=sigma)
+</code></pre></div><p>VaR using student t:
+standarized</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">VaR.t4 &lt;- qt(alpha, t.dof) * sqrt((t.dof-2)/t.dof) * sigma
+</code></pre></div><hr>
 <h2 id="project-2-analysing-airbnb-listings-in-istanbul">Project 2: Analysing AirBnb listings in Istanbul</h2>
 <p>Authors: Manu Vanderveeren, Shreya Salot, Fabio Bodenmann, Grace Feng, Jad El Temsah and Riccardo Luca Broggi</p>
 <p><strong>1. Loading all the packages which we will use</strong></p>

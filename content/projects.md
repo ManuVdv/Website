@@ -5,6 +5,180 @@ thumbnail: images/tn.png
 title: Projects
 ---
 
+--------------------
+
+## Project 3: Statistical analysis on the Dow Jones
+
+# 1. Calculating losses with historical data
+
+```{r}
+install.packages("qrmdata") 
+library(qrmdata)
+```
+
+Read data of Dow Jones index constituents, see https://finance.yahoo.com/q/cp?s=%5EDJI
+```{r}
+data(DJ_const)
+names(DJ_const)
+```
+
+
+portfolio and shares
+```{r}
+portfolio <- c("BA","IBM","KO") # ,"JNJ"
+lambda <- c(1000,1000,1000) # 
+S <- DJ_const[,portfolio]
+logS <- log(S)
+tt <- nrow(logS)
+dim(diff(logS))
+#Risk factor changes
+#we will not take the first difference because it is useless
+X <- diff(logS)[2:tt,]
+```
+
+current value of the portfolio and weights (current time is end time series: tt)
+```{r}
+Vtt <- sum(lambda * S[tt,]) # 427890 
+weights <- lambda * S[tt,]/Vtt
+```
+
+
+function to build historical losses for this portfolio:
+```{r}
+loss.sim <- function(Xval, proportion, value){
+  # arguments:
+  # Xval ... matrix or vector of d risk-factor changes 
+  # proportion ... row vector of d weights representing the proportion invested in each stock 
+  # value ... scalar representing the value of the portfolio
+  
+  
+  #if you don't have a matrix its a bit harder
+  if (is.matrix(Xval)){
+    n <- dim(Xval)[1]
+    prod <- (exp(Xval)-1) %*% t(weights) #you can also do this with a for loop
+    #log returns thats why we use exp
+    total <- rowSums(prod)
+  } else {
+    n <- length(Xval)
+    prod <- weights * (exp(Xval)-1)
+    total <- sum(prod)
+  }
+  
+  loss <- -value * total
+  return(loss)
+}
+
+Loss.sim <- loss.sim(X, weights, Vtt)
+summary(Loss.sim)
+hist(Loss.sim, breaks = 20)
+
+# with historical losses we can estimate the expected value of L_{tt+1}
+meanL <- mean(Loss.sim, na.rm = TRUE)
+```
+![loss.sim](/images/loss.sim.jpeg)
+
+# 2. Calculating linear losses and mean and variance
+
+```{r}
+linearised loss 
+losslin.sim <- function(Xval, proportion, value){
+  # arguments:
+  # Xval ... matrix or vector of d risk-factor changes 
+  # proportion ... row vector of d weights representing the proportion invested in each stock 
+  # value ... scalar representing the value of the portfolio
+  
+  if (is.matrix(Xval)){
+    n <- dim(Xval)[1]
+    prod <- (Xval) %*% t(weights)
+    total <- rowSums(prod)
+  } else {
+    n <- length(Xval)
+    prod <- weights * Xval
+    total <- sum(prod)
+  }
+  
+  loss <- -value * total
+  return(loss)
+}
+
+
+Losslin.sim <- losslin.sim(X, weights, Vtt)
+hist(Losslin.sim, breaks = 20)
+
+# mean and variance of loss lin is
+# E(Llin) = Vtt * weights' E(X) 
+# Var(Llin) = Vtt^2 * weights * sigma * weights
+# easy to compute when you have the variances of the risk factor changes
+# mean and variance of historical risk factor changes ~ normal
+n <- dim(X)[1]
+muX.hat <- colMeans(X, na.rm = TRUE)
+sigmaX.hat <- var(X, na.rm = TRUE)  
+meanLosslin <- -Vtt * sum(weights*muX.hat) 
+varLosslin <- Vtt^2 *(weights %*% sigmaX.hat %*% t(weights))
+```
+
+# 3. VaR and ES for our simulated loss with historical data 
+
+```{r}
+alpha <- c(seq(0.1,0.8,0.1), seq(0.9,1,0.01))
+VaR.hs <- quantile(Loss.sim, alpha, na.rm = TRUE)
+#this quantile function is for sample quantile 
+#you need to remove the NAs! that's why we use na.rm
+#for 7
+ES.hs <- rep(0, length(alpha))
+for(i in 1:length(alpha)) {
+  values <- Loss.sim[Loss.sim > VaR.hs[i]]
+  ES.hs[i] <- mean(values, na.rm = TRUE)
+}
+
+ran <- range(VaR.hs, ES.hs, na.rm = TRUE)
+plot(alpha, VaR.hs, type = "l", ylim = ran, xlab = expression(alpha),
+     ylab = expression("estimated VaR"[alpha],"~ES"[alpha])) # true ES_alpha
+lines(alpha, ES.hs , type = "l", col = "maroon3") # ES_alpha estimate
+legend("topleft", bty = "n", y.intersp = 1.2, lty = rep(1, 2),
+       col = c("black", "maroon3"),
+       legend = c(expression(VaR[alpha]),
+                  expression(ES[alpha])))
+
+# or build it
+# n <- length(Loss.sim)
+# L.order <- sort(Loss.sim)
+# Varhat <- L.order[ceiling(n*alpha)] 
+# plot(alpha, Varhat)
+
+```
+plot the histogram of the losses and highlight the VaR and ES 
+
+![alpha](/images/alpha.jpeg)
+
+# 4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution
+
+```{r}
+alpha <- c(0.90,0.95,0.975,0.99,0.995,0.999,0.9999,0.99999,0.999999)
+```
+
+Standard deviation (daily)
+```{r}
+sigma <- 0.2*10000/sqrt(250)
+```
+
+Degrees of freedom when using the Student t distribution
+```{r}
+t.dof <- 4
+```
+VaR based on the normal distribution:
+As p is a vector of quantiles, plugging it into the inverse normal 
+quantile function results in a vector of VaRs
+
+```{r}
+VaR.normal <- qnorm(alpha, sd=sigma)
+```
+VaR using student t:
+standarized
+```{r}
+VaR.t4 <- qt(alpha, t.dof) * sqrt((t.dof-2)/t.dof) * sigma
+```
+
 ---------------------------
 
 ## Project 2: Analysing AirBnb listings in Istanbul
