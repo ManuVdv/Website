@@ -77,30 +77,6 @@ Variables:
 glimpse(listings)
 
 ```
-Output: 
-Rows: 20,911
-Columns: 21
-$ price                  <dbl> 720, 761, 823, 343, 768, 384, 473, 514, 514, 343, 459, 384, 240, 617, 302, 768, 1070, 206, 501, 117, 137, 343, 686...
-$ cleaning_fee           <dbl> 0, 77, 240, 0, 154, 308, 0, 0, 309, 69, 0, 0, 206, 0, 0, 0, 0, 206, 154, 154, 171, 329, 231, 238, 115, 192, 0, 372...
-$ extra_people           <dbl> 178, 77, 103, 274, 0, 115, 0, 0, 0, 0, 77, 0, 137, 77, 274, 308, 0, 69, 0, 154, 34, 151, 77, 77, 115, 38, 69, 0, 0...
-$ property_type          <chr> "Apartment", "Serviced apartment", "Apartment", "Apartment", "Apartment", "Apartment", "Apartment", "Apartment", "...
-$ room_type              <chr> "Entire home/apt", "Hotel room", "Entire home/apt", "Private room", "Private room", "Private room", "Private room"...
-$ number_of_reviews      <dbl> 1, 0, 0, 0, 1, 1, 0, 0, 9, 0, 12, 0, 0, 0, 74, 0, 0, 86, 0, 68, 6, 3, 75, 18, 171, 28, 1, 26, 0, 0, 0, 36, 8, 129,...
-$ review_scores_rating   <dbl> 100, NA, NA, NA, 80, 100, NA, NA, 93, NA, 95, NA, NA, NA, 98, NA, NA, 93, NA, 97, 100, 73, 90, 94, 96, 91, 100, 97...
-$ longitude              <dbl> 29.05367, 28.98567, 29.05559, 28.95254, 28.97626, 28.99739, 28.97588, 28.99829, 29.03580, 28.98902, 29.03155, 28.9...
-$ latitude               <dbl> 41.05650, 41.04471, 41.09048, 41.04844, 41.03350, 41.05382, 41.02704, 41.04902, 41.06464, 41.03467, 41.03485, 41.0...
-$ neighbourhood          <chr> "Üsküdar", "Şişli", "Beşiktaş", "Beyoglu", "Beyoglu", "Şişli", "Karaköy", "Beşiktaş", "Beşiktaş", "Taksim", "Üsküd...
-$ minimum_nights         <dbl> 1, 3, 3, 3, 1, 2, 1, 1, 3, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 2, 2, 2, 3, 3, 3, 4, 1, 3, 2, 1, 1, 4, 4, 3, 1, 1, 1, 3, ...
-$ guests_included        <dbl> 2, 2, 6, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 4, 1, 1, 10, 1, 1, 2, 4, 4, 2, 2, 1, 1, 1, 1, 1, 6, 2, 1, 1, 1, 1, 2,...
-$ bathrooms              <dbl> 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, NA, 1.0, 1.5, 1.5, NA, 1.0, 1.0, 1.5, 1.0, 1.0, 1.5, 1.5, 1.0, 1.0, 1.0, 1.0, 1...
-$ bedrooms               <dbl> 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 0, 1, 2, 2, 1, 2, 3, 2, 1, 2, 1, 2, 1, 1, 2, 3, 2, 2, 1, 1, 0, 1, ...
-$ beds                   <dbl> 1, 3, 2, 1, 1, 1, 1, NA, 2, 1, 2, NA, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 4, 2, 1, 3, 1, 2, 2, NA, NA, 4, 2, 5, 1, NA, 1...
-$ host_is_superhost      <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL...
-$ is_location_exact      <lgl> FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE...
-$ neighbourhood_cleansed <chr> "Uskudar", "Sisli", "Sariyer", "Beyoglu", "Beyoglu", "Sisli", "Beyoglu", "Besiktas", "Besiktas", "Beyoglu", "Uskud...
-$ cancellation_policy    <chr> "flexible", "moderate", "flexible", "strict_14_with_grace_period", "flexible", "moderate", "flexible", "flexible",...
-$ prop_type_simplified   <chr> "Apartment", "Serviced apartment", "Apartment", "Apartment", "Apartment", "Apartment", "Apartment", "Apartment", "...
-$ price_4_nights         <dbl> 2880, 3121, 3532, 2468, 3226, 1844, 1892, 2056, 2365, 1441, 1836, 1536, 1714, 2468, 2304, 3072, 4280, 1306, 2158, ...
 
 ## Computing summary statistics of the variables of interest, or finding NAs
 
@@ -115,25 +91,6 @@ listings <- listings %>%
 skim(listings)
 
 ```
-Output:
-
-A tibble: 13 x 11
-   skim_variable        n_missing complete_rate    mean        sd    p0   p25    p50    p75     p100 hist 
- * <chr>                    <int>         <dbl>   <dbl>     <dbl> <dbl> <dbl>  <dbl>  <dbl>    <dbl> <chr>
- 1 price                        0         1      481.   1966.       0   137    247    446    76922   ▇▁▁▁▁
- 2 cleaning_fee                 0         1       48.2   120.       0     0      0     48     4241   ▇▁▁▁▁
- 3 extra_people                 0         1       30.6    75.7      0     0      0     40     2057   ▇▁▁▁▁
- 4 number_of_reviews            0         1        8.24   24.0      0     0      0      4      345   ▇▁▁▁▁
- 5 review_scores_rating     11272         0.461   91.2    14.1     20    89     96    100      100   ▁▁▁▁▇
- 6 longitude                    0         1       29.0     0.124   28.0  29.0   29.0   29.0     29.9 ▁▁▇▁▁
- 7 latitude                     0         1       41.0     0.0448  40.8  41.0   41.0   41.0     41.5 ▁▇▁▁▁
- 8 minimum_nights               0         1        1.54    0.803    1     1      1      2        4   ▇▃▁▂▁
- 9 guests_included              0         1        1.40    1.09     1     1      1      1       16   ▇▁▁▁▁
-10 bathrooms                   80         0.996    1.20    1.07     0     1      1      1       50   ▇▁▁▁▁
-11 bedrooms                   156         0.993    1.36    1.48     0     1      1      2       50   ▇▁▁▁▁
-12 beds                       650         0.969    2.02    2.07     0     1      1      2       77   ▇▁▁▁▁
-13 price_4_nights               0         1     2026.   7871.       0   604   1068   1864   307688   ▇▁▁▁▁
-  
   
 ##Handling missing values (NAs)
 
@@ -160,12 +117,6 @@ skim(listings$cleaning_fee)
 #There are 13660 missing values for the variable cleaning_fee. Comparing it to other variables, we can see that review_scores_rating has a very similar missing value proportion. This suggests that listings with no reviews (most likely new listings) do not ask for a cleaning_fee to attract new customers. Accordingly, we set the NAs to a value of 0.
 
 ```
-Output:
-
-# A tibble: 1 x 11
-  skim_variable n_missing complete_rate  mean    sd    p0   p25   p50   p75  p100 hist 
-* <chr>             <int>         <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <chr>
-1 data                  0             1  48.2  120.     0     0     0    48  4241 ▇▁▁▁▁
   
 Next, we look at the variable property_type. We can use the count function to determine how many categories there are their frequency. What are the top 4 most common property types? What proportion of the total listings do they make up?
 
@@ -181,21 +132,6 @@ listings %>%
   arrange(desc(proportion))
   
 ```
-Output:
-A tibble: 40 x 3
-   property_type          n proportion
-   <chr>              <int>      <dbl>
- 1 Apartment          13036     0.623 
- 2 Serviced apartment  1454     0.0695
- 3 House               1370     0.0655
- 4 Boutique hotel      1097     0.0525
- 5 Townhouse            621     0.0297
- 6 Bed and breakfast    572     0.0274
- 7 Aparthotel           569     0.0272
- 8 Hotel                542     0.0259
- 9 Condominium          501     0.0240
-10 Loft                 371     0.0177
-# ... with 30 more rows
 
 ```{r}
 
@@ -211,21 +147,6 @@ listings %>%
   arrange(desc(n)) 
   
 ```
-Output:
-A tibble: 40 x 3
-   property_type      prop_type_simplified     n
-   <chr>              <chr>                <int>
- 1 Apartment          Apartment            13036
- 2 Serviced apartment Serviced apartment    1454
- 3 House              House                 1370
- 4 Boutique hotel     Boutique hotel        1097
- 5 Townhouse          Other                  621
- 6 Bed and breakfast  Other                  572
- 7 Aparthotel         Other                  569
- 8 Hotel              Other                  542
- 9 Condominium        Other                  501
-10 Loft               Other                  371
-# ... with 30 more rows
 
 Airbnb is most commonly used for travel purposes, i.e., as an alternative to traditional hotels. We only want to include listings in our regression analysis that are intended for travel purposes:
 
@@ -239,14 +160,6 @@ listings %>%
   arrange(desc(proportion))
   
 ```
-Output:
-
-  minimum_nights     n proportion
-           <dbl> <int>      <dbl>
-1              1 13228     0.633 
-2              2  4511     0.216 
-3              3  2682     0.128 
-4              4   490     0.0234
 
 The most common value for minimum nights are 1, 2 and 3. 1 night accounts for 56%, 2 nights for 19% and 3 nights for 11% of the values. 
 
@@ -348,8 +261,6 @@ l3 <- listings %>%
 # Here we run a regression model of the log of the price for 4 nights with beds, bathrooms and bedrooms
 model3 <- lm(log(price_4_nights) ~ beds + bathrooms + bedrooms, data=l3)
 summary(model3)
-
-
 
 ```
 

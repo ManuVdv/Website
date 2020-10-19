@@ -137,31 +137,7 @@ neighbourhood*: three variables on a few major neighbourhoods in each city</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">#glimpse shows us all the different columns
 glimpse(listings)
 
-</code></pre></div><p>Output: 
-Rows: 20,911
-Columns: 21
-$ price                  <!-- raw HTML omitted --> 720, 761, 823, 343, 768, 384, 473, 514, 514, 343, 459, 384, 240, 617, 302, 768, 1070, 206, 501, 117, 137, 343, 686&hellip;
-$ cleaning_fee           <!-- raw HTML omitted --> 0, 77, 240, 0, 154, 308, 0, 0, 309, 69, 0, 0, 206, 0, 0, 0, 0, 206, 154, 154, 171, 329, 231, 238, 115, 192, 0, 372&hellip;
-$ extra_people           <!-- raw HTML omitted --> 178, 77, 103, 274, 0, 115, 0, 0, 0, 0, 77, 0, 137, 77, 274, 308, 0, 69, 0, 154, 34, 151, 77, 77, 115, 38, 69, 0, 0&hellip;
-$ property_type          <!-- raw HTML omitted --> &ldquo;Apartment&rdquo;, &ldquo;Serviced apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;&hellip;
-$ room_type              <!-- raw HTML omitted --> &ldquo;Entire home/apt&rdquo;, &ldquo;Hotel room&rdquo;, &ldquo;Entire home/apt&rdquo;, &ldquo;Private room&rdquo;, &ldquo;Private room&rdquo;, &ldquo;Private room&rdquo;, &ldquo;Private room&rdquo;&hellip;
-$ number_of_reviews      <!-- raw HTML omitted --> 1, 0, 0, 0, 1, 1, 0, 0, 9, 0, 12, 0, 0, 0, 74, 0, 0, 86, 0, 68, 6, 3, 75, 18, 171, 28, 1, 26, 0, 0, 0, 36, 8, 129,&hellip;
-$ review_scores_rating   <!-- raw HTML omitted --> 100, NA, NA, NA, 80, 100, NA, NA, 93, NA, 95, NA, NA, NA, 98, NA, NA, 93, NA, 97, 100, 73, 90, 94, 96, 91, 100, 97&hellip;
-$ longitude              <!-- raw HTML omitted --> 29.05367, 28.98567, 29.05559, 28.95254, 28.97626, 28.99739, 28.97588, 28.99829, 29.03580, 28.98902, 29.03155, 28.9&hellip;
-$ latitude               <!-- raw HTML omitted --> 41.05650, 41.04471, 41.09048, 41.04844, 41.03350, 41.05382, 41.02704, 41.04902, 41.06464, 41.03467, 41.03485, 41.0&hellip;
-$ neighbourhood          <!-- raw HTML omitted --> &ldquo;Üsküdar&rdquo;, &ldquo;Şişli&rdquo;, &ldquo;Beşiktaş&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Şişli&rdquo;, &ldquo;Karaköy&rdquo;, &ldquo;Beşiktaş&rdquo;, &ldquo;Beşiktaş&rdquo;, &ldquo;Taksim&rdquo;, &ldquo;Üsküd&hellip;
-$ minimum_nights         <!-- raw HTML omitted --> 1, 3, 3, 3, 1, 2, 1, 1, 3, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 2, 2, 2, 3, 3, 3, 4, 1, 3, 2, 1, 1, 4, 4, 3, 1, 1, 1, 3, &hellip;
-$ guests_included        <!-- raw HTML omitted --> 2, 2, 6, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 3, 1, 4, 1, 1, 10, 1, 1, 2, 4, 4, 2, 2, 1, 1, 1, 1, 1, 6, 2, 1, 1, 1, 1, 2,&hellip;
-$ bathrooms              <!-- raw HTML omitted --> 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, NA, 1.0, 1.5, 1.5, NA, 1.0, 1.0, 1.5, 1.0, 1.0, 1.5, 1.5, 1.0, 1.0, 1.0, 1.0, 1&hellip;
-$ bedrooms               <!-- raw HTML omitted --> 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 0, 1, 2, 2, 1, 2, 3, 2, 1, 2, 1, 2, 1, 1, 2, 3, 2, 2, 1, 1, 0, 1, &hellip;
-$ beds                   <!-- raw HTML omitted --> 1, 3, 2, 1, 1, 1, 1, NA, 2, 1, 2, NA, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 4, 2, 1, 3, 1, 2, 2, NA, NA, 4, 2, 5, 1, NA, 1&hellip;
-$ host_is_superhost      <!-- raw HTML omitted --> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL&hellip;
-$ is_location_exact      <!-- raw HTML omitted --> FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE&hellip;
-$ neighbourhood_cleansed <!-- raw HTML omitted --> &ldquo;Uskudar&rdquo;, &ldquo;Sisli&rdquo;, &ldquo;Sariyer&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Sisli&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Besiktas&rdquo;, &ldquo;Besiktas&rdquo;, &ldquo;Beyoglu&rdquo;, &ldquo;Uskud&hellip;
-$ cancellation_policy    <!-- raw HTML omitted --> &ldquo;flexible&rdquo;, &ldquo;moderate&rdquo;, &ldquo;flexible&rdquo;, &ldquo;strict_14_with_grace_period&rdquo;, &ldquo;flexible&rdquo;, &ldquo;moderate&rdquo;, &ldquo;flexible&rdquo;, &ldquo;flexible&rdquo;,&hellip;
-$ prop_type_simplified   <!-- raw HTML omitted --> &ldquo;Apartment&rdquo;, &ldquo;Serviced apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;Apartment&rdquo;, &ldquo;&hellip;
-$ price_4_nights         <!-- raw HTML omitted --> 2880, 3121, 3532, 2468, 3226, 1844, 1892, 2056, 2365, 1441, 1836, 1536, 1714, 2468, 2304, 3072, 4280, 1306, 2158, &hellip;</p>
-<h2 id="computing-summary-statistics-of-the-variables-of-interest-or-finding-nas">Computing summary statistics of the variables of interest, or finding NAs</h2>
+</code></pre></div><h2 id="computing-summary-statistics-of-the-variables-of-interest-or-finding-nas">Computing summary statistics of the variables of interest, or finding NAs</h2>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">listings &lt;- listings %&gt;% 
   
   # we use parse_number to remove the (dollar) signs in front of the cells in the columns (price, cleaning_fee and extra_people) so the values are just plain numbers that we can work with
@@ -171,26 +147,7 @@ $ price_4_nights         <!-- raw HTML omitted --> 2880, 3121, 3532, 2468, 3226,
 
 skim(listings)
 
-</code></pre></div><p>Output:</p>
-<p>A tibble: 13 x 11
-skim_variable        n_missing complete_rate    mean        sd    p0   p25    p50    p75     p100 hist</p>
-<ul>
-<li><!-- raw HTML omitted -->                    <!-- raw HTML omitted -->         <!-- raw HTML omitted -->   <!-- raw HTML omitted -->     <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted -->  <!-- raw HTML omitted -->  <!-- raw HTML omitted -->    <!-- raw HTML omitted --> <!-- raw HTML omitted -->
-1 price                        0         1      481.   1966.       0   137    247    446    76922   ▇▁▁▁▁
-2 cleaning_fee                 0         1       48.2   120.       0     0      0     48     4241   ▇▁▁▁▁
-3 extra_people                 0         1       30.6    75.7      0     0      0     40     2057   ▇▁▁▁▁
-4 number_of_reviews            0         1        8.24   24.0      0     0      0      4      345   ▇▁▁▁▁
-5 review_scores_rating     11272         0.461   91.2    14.1     20    89     96    100      100   ▁▁▁▁▇
-6 longitude                    0         1       29.0     0.124   28.0  29.0   29.0   29.0     29.9 ▁▁▇▁▁
-7 latitude                     0         1       41.0     0.0448  40.8  41.0   41.0   41.0     41.5 ▁▇▁▁▁
-8 minimum_nights               0         1        1.54    0.803    1     1      1      2        4   ▇▃▁▂▁
-9 guests_included              0         1        1.40    1.09     1     1      1      1       16   ▇▁▁▁▁
-10 bathrooms                   80         0.996    1.20    1.07     0     1      1      1       50   ▇▁▁▁▁
-11 bedrooms                   156         0.993    1.36    1.48     0     1      1      2       50   ▇▁▁▁▁
-12 beds                       650         0.969    2.02    2.07     0     1      1      2       77   ▇▁▁▁▁
-13 price_4_nights               0         1     2026.   7871.       0   604   1068   1864   307688   ▇▁▁▁▁</li>
-</ul>
-<p>##Handling missing values (NAs)</p>
+</code></pre></div><p>##Handling missing values (NAs)</p>
 <p>Use skimr::skim() function to view a summary of the cleaning_fee data. This is also stored as a character, so you have to turn it into a number, as discussed earlier.</p>
 <p>How many observations have missing values for cleaning_fee?
 What do you think is the most likely reason for the missing observations of cleaning_fee? In other words, what does a missing value of cleaning_fee indicate?
@@ -209,14 +166,7 @@ skim(listings$cleaning_fee)
 
 #There are 13660 missing values for the variable cleaning_fee. Comparing it to other variables, we can see that review_scores_rating has a very similar missing value proportion. This suggests that listings with no reviews (most likely new listings) do not ask for a cleaning_fee to attract new customers. Accordingly, we set the NAs to a value of 0.
 
-</code></pre></div><p>Output:</p>
-<h1 id="a-tibble-1-x-11">A tibble: 1 x 11</h1>
-<p>skim_variable n_missing complete_rate  mean    sd    p0   p25   p50   p75  p100 hist</p>
-<ul>
-<li><!-- raw HTML omitted -->             <!-- raw HTML omitted -->         <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted --> <!-- raw HTML omitted -->
-1 data                  0             1  48.2  120.     0     0     0    48  4241 ▇▁▁▁▁</li>
-</ul>
-<p>Next, we look at the variable property_type. We can use the count function to determine how many categories there are their frequency. What are the top 4 most common property types? What proportion of the total listings do they make up?</p>
+</code></pre></div><p>Next, we look at the variable property_type. We can use the count function to determine how many categories there are their frequency. What are the top 4 most common property types? What proportion of the total listings do they make up?</p>
 <p>Since the vast majority of the observations in the data are one of the top four or five property types, we would like to create a simplified version of property_type variable that has 5 categories: the top four categories and Other. Fill in the code below to create prop_type_simplified.</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
 # Arranging the property types to view the top property types
@@ -225,22 +175,7 @@ listings %&gt;%
   mutate(proportion = n/sum(n)) %&gt;% 
   arrange(desc(proportion))
   
-</code></pre></div><p>Output:
-A tibble: 40 x 3
-property_type          n proportion
-<!-- raw HTML omitted -->              <!-- raw HTML omitted -->      <!-- raw HTML omitted -->
-1 Apartment          13036     0.623 
-2 Serviced apartment  1454     0.0695
-3 House               1370     0.0655
-4 Boutique hotel      1097     0.0525
-5 Townhouse            621     0.0297
-6 Bed and breakfast    572     0.0274
-7 Aparthotel           569     0.0272
-8 Hotel                542     0.0259
-9 Condominium          501     0.0240
-10 Loft                 371     0.0177</p>
-<h1 id="-with-30-more-rows">&hellip; with 30 more rows</h1>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
 # we make a new column where we assign all other property types than the 4 most common ones to the category other
 listings &lt;- listings %&gt;%
   mutate(prop_type_simplified = case_when(
@@ -252,22 +187,7 @@ listings %&gt;%
   count(property_type, prop_type_simplified) %&gt;%
   arrange(desc(n)) 
   
-</code></pre></div><p>Output:
-A tibble: 40 x 3
-property_type      prop_type_simplified     n
-<!-- raw HTML omitted -->              <!-- raw HTML omitted -->                <!-- raw HTML omitted -->
-1 Apartment          Apartment            13036
-2 Serviced apartment Serviced apartment    1454
-3 House              House                 1370
-4 Boutique hotel     Boutique hotel        1097
-5 Townhouse          Other                  621
-6 Bed and breakfast  Other                  572
-7 Aparthotel         Other                  569
-8 Hotel              Other                  542
-9 Condominium        Other                  501
-10 Loft               Other                  371</p>
-<h1 id="-with-30-more-rows-1">&hellip; with 30 more rows</h1>
-<p>Airbnb is most commonly used for travel purposes, i.e., as an alternative to traditional hotels. We only want to include listings in our regression analysis that are intended for travel purposes:</p>
+</code></pre></div><p>Airbnb is most commonly used for travel purposes, i.e., as an alternative to traditional hotels. We only want to include listings in our regression analysis that are intended for travel purposes:</p>
 <p>What are the most common values for the variable minimum_nights?</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
 listings %&gt;% 
@@ -275,14 +195,7 @@ listings %&gt;%
   mutate(proportion = n/sum(n)) %&gt;% 
   arrange(desc(proportion))
   
-</code></pre></div><p>Output:</p>
-<p>minimum_nights     n proportion
-<!-- raw HTML omitted --> <!-- raw HTML omitted -->      <!-- raw HTML omitted -->
-1              1 13228     0.633 
-2              2  4511     0.216 
-3              3  2682     0.128 
-4              4   490     0.0234</p>
-<p>The most common value for minimum nights are 1, 2 and 3. 1 night accounts for 56%, 2 nights for 19% and 3 nights for 11% of the values.</p>
+</code></pre></div><p>The most common value for minimum nights are 1, 2 and 3. 1 night accounts for 56%, 2 nights for 19% and 3 nights for 11% of the values.</p>
 <p>Is there any value among the common values that stands out?</p>
 <p>A 1 night minimum is by far the most common value for this variable. However, there are also several occasions when the listings require a 1 month minimum stay. These are unlikely for travel purposes, rather for short-term  housing solutions. Among the most common three values, no values are unusual.</p>
 <p>What is the likely intended purpose for Airbnb listings with this seemingly unusual value for minimum_nights?</p>
@@ -347,8 +260,6 @@ l3 &lt;- listings %&gt;%
 # Here we run a regression model of the log of the price for 4 nights with beds, bathrooms and bedrooms
 model3 &lt;- lm(log(price_4_nights) ~ beds + bathrooms + bedrooms, data=l3)
 summary(model3)
-
-
 
 </code></pre></div><p>This regression confirms that the number of bedrooms, bathroom and beds are all relevant predictors of the price of a property, as their p values are extremely small</p>
 <p>Do superhosts (host_is_superhost) command a pricing premium, after controlling for other variables?</p>
