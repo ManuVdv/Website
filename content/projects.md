@@ -50,22 +50,6 @@ listings <- listingsRAW %>%
 
 ```
 
-Variables:
-  price = cost per night
-  cleaning_fee: cleaning fee
-  extra_people: charge for having more than 1 person
-  property_type: type of accommodation (House, Apartment, etc.)
-  room_type:
-    Entire home/apt (guests have entire place to themselves)
-    Private room (Guests have private room to sleep, all other rooms shared)
-    Shared room (Guests sleep in room shared with others)
-  number_of_reviews: Total number of reviews for the listing
-  review_scores_rating: Average review score (0 - 100)
-  longitude , latitude: geographical coordinates to help us locate the listing
-  neighbourhood*: three variables on a few major neighbourhoods in each city
-
-
-
 ##Exploratory Data Analysis (EDA)
 
 “The goal during EDA is to develop an understanding of the data. The easiest way to do this is to use questions as tools to guide the investigation… EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”
@@ -98,7 +82,7 @@ Use skimr::skim() function to view a summary of the cleaning_fee data. This is a
 
 How many observations have missing values for cleaning_fee?
 What do you think is the most likely reason for the missing observations of cleaning_fee? In other words, what does a missing value of cleaning_fee indicate?
-cleaning_fee an example of data that is missing not at random, since there is a specific pattern/explanation to the missing data.
+cleaning_fee is an example of data that is missing not at random, since there is a specific pattern/explanation to the missing data.
 
 Fill in the code below to impute the missing values of cleaning_fee with an appropriate numeric value. Then use skimr::skim() function to confirm that there are no longer any missing values of cleaning_fee.
   
