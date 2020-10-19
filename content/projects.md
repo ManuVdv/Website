@@ -9,7 +9,7 @@ title: Projects
 
 ## Project 3: Statistical analysis on the Dow Jones
 
-# 1. Calculating losses with historical data
+**1. Calculating losses with historical data**
 
 ```{r}
 install.packages("qrmdata") 
@@ -77,7 +77,7 @@ meanL <- mean(Loss.sim, na.rm = TRUE)
 ```
 ![loss.sim](/images/loss.sim.jpeg)
 
-# 2. Calculating linear losses and mean and variance
+**2. Calculating linear losses and mean and variance**
 
 ```{r}
 linearised loss 
@@ -117,7 +117,7 @@ meanLosslin <- -Vtt * sum(weights*muX.hat)
 varLosslin <- Vtt^2 *(weights %*% sigmaX.hat %*% t(weights))
 ```
 
-# 3. VaR and ES for our simulated loss with historical data 
+**3. VaR and ES for our simulated loss with historical data**
 
 ```{r}
 alpha <- c(seq(0.1,0.8,0.1), seq(0.9,1,0.01))
@@ -151,7 +151,7 @@ plot the histogram of the losses and highlight the VaR and ES
 
 ![alpha](/images/alpha.jpeg)
 
-# 4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution
+**4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution**
 
 ```{r}
 alpha <- c(0.90,0.95,0.975,0.99,0.995,0.999,0.9999,0.99999,0.999999)

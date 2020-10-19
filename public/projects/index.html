@@ -90,7 +90,7 @@
 
     <hr>
 <h2 id="project-3-statistical-analysis-on-the-dow-jones">Project 3: Statistical analysis on the Dow Jones</h2>
-<h1 id="1-calculating-losses-with-historical-data">1. Calculating losses with historical data</h1>
+<p><strong>1. Calculating losses with historical data</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">install.packages(&#34;qrmdata&#34;) 
 library(qrmdata)
 </code></pre></div><p>Read data of Dow Jones index constituents, see <a href="https://finance.yahoo.com/q/cp?s=%5EDJI">https://finance.yahoo.com/q/cp?s=%5EDJI</a></p>
@@ -140,7 +140,7 @@ hist(Loss.sim, breaks = 20)
 # with historical losses we can estimate the expected value of L_{tt+1}
 meanL &lt;- mean(Loss.sim, na.rm = TRUE)
 </code></pre></div><p><img src="/images/loss.sim.jpeg" alt="loss.sim"></p>
-<h1 id="2-calculating-linear-losses-and-mean-and-variance">2. Calculating linear losses and mean and variance</h1>
+<p><strong>2. Calculating linear losses and mean and variance</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">linearised loss 
 losslin.sim &lt;- function(Xval, proportion, value){
   # arguments:
@@ -176,7 +176,7 @@ muX.hat &lt;- colMeans(X, na.rm = TRUE)
 sigmaX.hat &lt;- var(X, na.rm = TRUE)  
 meanLosslin &lt;- -Vtt * sum(weights*muX.hat) 
 varLosslin &lt;- Vtt^2 *(weights %*% sigmaX.hat %*% t(weights))
-</code></pre></div><h1 id="3-var-and-es-for-our-simulated-loss-with-historical-data">3. VaR and ES for our simulated loss with historical data</h1>
+</code></pre></div><p><strong>3. VaR and ES for our simulated loss with historical data</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">alpha &lt;- c(seq(0.1,0.8,0.1), seq(0.9,1,0.01))
 VaR.hs &lt;- quantile(Loss.sim, alpha, na.rm = TRUE)
 #this quantile function is for sample quantile 
@@ -205,7 +205,7 @@ legend(&#34;topleft&#34;, bty = &#34;n&#34;, y.intersp = 1.2, lty = rep(1, 2),
 
 </code></pre></div><p>plot the histogram of the losses and highlight the VaR and ES</p>
 <p><img src="/images/alpha.jpeg" alt="alpha"></p>
-<h1 id="4-for-losses-that-are-normal-distributed-compute-the-var-and-es-for-different-values-of-alpha-do-the-same-for-a-t-distribution">4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution</h1>
+<p><strong>4. For losses that are Normal distributed, compute the VaR and ES for different values of alpha. Do the same for a t distribution</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">alpha &lt;- c(0.90,0.95,0.975,0.99,0.995,0.999,0.9999,0.99999,0.999999)
 </code></pre></div><p>Standard deviation (daily)</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">sigma &lt;- 0.2*10000/sqrt(250)

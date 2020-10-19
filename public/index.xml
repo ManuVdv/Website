@@ -171,7 +171,8 @@ My international exchange in Hong Kong during the autumn of 2019 made me grow as
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Project 3: Statistical analysis on the Dow Jones 1. Calculating losses with historical data install.packages(&amp;#34;qrmdata&amp;#34;) library(qrmdata) Read data of Dow Jones index constituents, see https://finance.yahoo.com/q/cp?s=%5EDJI
+      <description>Project 3: Statistical analysis on the Dow Jones 1. Calculating losses with historical data
+install.packages(&amp;#34;qrmdata&amp;#34;) library(qrmdata) Read data of Dow Jones index constituents, see https://finance.yahoo.com/q/cp?s=%5EDJI
 data(DJ_const) names(DJ_const) portfolio and shares
 portfolio &amp;lt;- c(&amp;#34;BA&amp;#34;,&amp;#34;IBM&amp;#34;,&amp;#34;KO&amp;#34;) # ,&amp;#34;JNJ&amp;#34; lambda &amp;lt;- c(1000,1000,1000) # S &amp;lt;- DJ_const[,portfolio] logS &amp;lt;- log(S) tt &amp;lt;- nrow(logS) dim(diff(logS)) #Risk factor changes #we will not take the first difference because it is useless X &amp;lt;- diff(logS)[2:tt,] current value of the portfolio and weights (current time is end time series: tt)</description>
     </item>
