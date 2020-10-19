@@ -68,7 +68,7 @@ Variables:
 
 ##Exploratory Data Analysis (EDA)
 
-“Your goal during EDA is to develop an understanding of your data. The easiest way to do this is to use questions as tools to guide your investigation… EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”
+“The goal during EDA is to develop an understanding of the data. The easiest way to do this is to use questions as tools to guide the investigation… EDA is fundamentally a creative process. And like most creative processes, the key to asking quality questions is to generate a large quantity of questions.”
 
 ## Looking at the raw values
 
@@ -278,7 +278,7 @@ Do superhosts (host_is_superhost) command a pricing premium, after controlling f
 
 Most owners advertise the exact location of their listing (is_location_exact == TRUE), while a non-trivial proportion don’t. After controlling for other variables, is a listing’s exact location a significant predictor of price_4_nights?
 
-For all cities, there are 3 variables that relate to neighbourhoods: neighbourhood, neighbourhood_cleansed, and neighbourhood_group_cleansed. There are typically more than 20 neighbourhoods in each city, and it wouldn’t make sense to include them all in your model. Use your city knowledge, or ask someone with city knowledge, and see whether you can group neighbourhoods together so the majority of listings falls in fewer (5-6 max) geographical areas. You would thus need to create a new categorical variabale neighbourhood_simplified and determine whether location is a predictor of price_4_nights
+For all cities, there are 3 variables that relate to neighbourhoods: neighbourhood, neighbourhood_cleansed, and neighbourhood_group_cleansed. There are typically more than 20 neighbourhoods in each city, and it wouldn’t make sense to include them all in the model. Use city knowledge, or ask someone with city knowledge, and see whether you can group neighbourhoods together so the majority of listings falls in fewer (5-6 max) geographical areas. You would thus need to create a new categorical variabale neighbourhood_simplified and determine whether location is a predictor of price_4_nights
 
 ```{r}
 #Mapping neighborhoods into groups for Istanbul thanks to Sena Salman's help, Group 1 is the most posh areas, 2 are average and 3 more in the outskirts
